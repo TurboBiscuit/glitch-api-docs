@@ -1,0 +1,497 @@
+{
+  "info": {
+    "current_version": "2"
+  },
+  "endpoints": [{
+      "url": "https://api.glitch.com/v1/",
+      "version": "2",
+      "description": "This is the current version of the API and has more endpoints available."
+    },
+    {
+      "url": "https://api.glitch.com/",
+      "version": "1",
+      "description": "This version of the API is outdated and still functions but may be depriciated in the future."
+    }
+  ],
+  "objects": [{
+      "name": "User",
+      "object": [{
+          "name": "id",
+          "type": "string",
+          "description": "The ID of the user"
+        },
+        {
+          "name": "login",
+          "type": "string",
+          "description": "The login of the user"
+        }
+      ]
+    },
+    {
+      "name": "Project",
+      "object": [{
+          "name": "id",
+          "type": "string",
+          "description": "The ID of the project"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "description": "The domain of the project"
+        }
+      ]
+    },
+    {
+      "name": "Project Permission",
+      "object": [{
+          "name": "userId",
+          "type": "string",
+          "description": "The ID of the user in the project."
+        },
+        {
+          "name": "accessLevel",
+          "type": "number",
+          "description": "User access level. (idk what the numbers mean)"
+        }
+      ]
+    }
+  ],
+  "groups": [{
+      "name": "Users",
+      "description": "All the API Endpoints for Users",
+      "methods": [{
+          "method": "GET",
+          "path": "/users",
+          "name": "Get Users",
+          "description": "Returns a random array of users",
+          "endpoint_version": "1",
+          "query": [{
+              "optional": true,
+              "name": "orderKey",
+              "description": "Sort by key from the user object."
+            },
+            {
+              "optional": true,
+              "name": "orderDirection",
+              "description": "Sort direction.",
+              "accepts": ["ASC", "DESC"]
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/users/{user.id}",
+          "name": "Get User",
+          "description": "Returns a user based on the user id",
+          "endpoint_version": "1",
+          "example": "https://api.glitch.com/users/7224036"
+        },
+        {
+          "method": "GET",
+          "path": "/users/search",
+          "name": "Search Users",
+          "description": "Search all glitch users with a query string.",
+          "endpoint_version": "1",
+          "query": [{
+            "name": "q",
+            "optional": false,
+            "description": "Query string."
+          }],
+          "example": "https://api.glitch.com/users/search?q=TurboBiscuit"
+        },
+        {
+          "method": "GET",
+          "path": "/users/by/id",
+          "name": "Get User By ID",
+          "description": "Returns a user based on the user id",
+          "endpoint_version": "2",
+          "example": "https://api.glitch.com/v1/users/by/id?id=7224036",
+          "query": [{
+            "optional": false,
+            "name": "id",
+            "description": "User ID."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/users/by/persistentToken",
+          "name": "Get User By Glitch Persistent Token",
+          "description": "Returns a user based on the user persistent token.",
+          "endpoint_version": "2",
+          "example": "https://api.glitch.com/v1/users/by/id?id=7224036",
+          "query": [{
+            "optional": false,
+            "name": "persistentToken",
+            "description": "User Persistent Token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/users/by/id/emails",
+          "name": "Get User Email By ID",
+          "description": "Returns a users email based on the user id",
+          "endpoint_version": "2",
+          "query": [{
+            "optional": false,
+            "name": "id",
+            "description": "User ID."
+          }],
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Your glitch persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/users/by/login",
+          "name": "Get User By Login",
+          "description": "Returns a user based on the user login",
+          "endpoint_version": "2",
+          "example": "https://api.glitch.com/v1/users/by/login?login=TurboBiscuit",
+          "query": [{
+            "optional": false,
+            "name": "login",
+            "description": "User Login."
+          }]
+        },
+        {
+          "method": "POST",
+          "path": "/users/anon",
+          "name": "Create Anon User",
+          "description": "Creates a new Anon user.",
+          "endpoint_version": "2"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "description": "All the API Endpoints for Projects",
+      "methods": [{
+          "method": "GET",
+          "path": "/projects",
+          "name": "Get Projects",
+          "description": "Returns a random array of projects",
+          "endpoint_version": "1",
+          "query": [{
+              "optional": true,
+              "name": "orderKey",
+              "description": "Sort by key from the project object."
+            },
+            {
+              "optional": true,
+              "name": "orderDirection",
+              "description": "Sort direction.",
+              "accepts": ["ASC", "DESC"]
+            }
+          ]
+        },
+        {
+          "method": "POST",
+          "path": "/projects/{project.id}/stop",
+          "name": "Stop Project By ID",
+          "description": "Stop a project based on id.",
+          "endpoint_version": "1",
+          "headers": [{
+            "optional": true,
+            "name": "Authorization",
+            "description": "Your glitch persistent token. Used to show private projects."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/projects/{project.id || project.domain}",
+          "name": "Get Project",
+          "description": "Returns a project based on the project id or domain",
+          "endpoint_version": "1",
+          "headers": [{
+            "optional": true,
+            "name": "Authorization",
+            "description": "Your glitch persistent token. Used to show private projects."
+          }],
+          "example": "https://api.glitch.com/projects/a0fcd798-9ddf-42e5-8205-17158d4bf5bb"
+        },
+        {
+          "method": "GET",
+          "path": "/projects/by/id",
+          "name": "Get Project By ID",
+          "description": "Returns a project based on the project id",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": true,
+            "name": "Authorization",
+            "description": "Your glitch persistent token. Used to show private projects."
+          }],
+          "query": [{
+            "optional": false,
+            "name": "id",
+            "description": "ID of the project."
+          }],
+          "example": "https://api.glitch.com/v1/projects/by/id?id=a0fcd798-9ddf-42e5-8205-17158d4bf5bb"
+        },
+        {
+          "method": "GET",
+          "path": "/projects/by/domain",
+          "name": "Get Project By Domain",
+          "description": "Returns a project based on the project domain",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": true,
+            "name": "Authorization",
+            "description": "Your glitch persistent token. Used to show private projects."
+          }],
+          "query": [{
+            "optional": false,
+            "name": "domain",
+            "description": "Domain of the project."
+          }],
+          "example": "https://api.glitch.com/v1/projects/by/domain?domain=hello-express"
+        },
+        {
+          "method": "GET",
+          "path": "/projects",
+          "name": "Get Projects",
+          "description": "Returns a random array of projects",
+          "endpoint_version": "2",
+          "query": [{
+              "optional": true,
+              "name": "orderKey",
+              "description": "Sort by key from the project object."
+            },
+            {
+              "optional": true,
+              "name": "orderDirection",
+              "description": "Sort direction.",
+              "accepts": ["ASC", "DESC"]
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "path": "/projects/questions",
+          "name": "Get Questions",
+          "description": "Get all the questions; returns an array of questions.",
+          "endpoint_version": "1"
+        },
+        {
+          "method": "POST",
+          "path": "/projects/{project.id}/remix",
+          "name": "Remix Project",
+          "description": "Remix project by id.",
+          "endpoint_version": "1",
+          "query": [{
+            "optional": true,
+            "name": "ENV_VARIABLE",
+            "description": "This can be any ENV variable. This will be passed on to the remixed projects .env file."
+          }],
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Your glitch persistent token."
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Infrastructure",
+      "description": "These methods are restricted to infrastructure users (Glitch Admins/Support).",
+      "methods": [{
+          "method": "PUT",
+          "path": "/projectPlacements/byProjectId/{project.id}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "DELETE",
+          "path": "/projectPlacements/previous/byProjectId/{project.id}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/keys/{keys}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "PUT",
+          "path": "/keys/{keys}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "POST",
+          "path": "/operationsMeta/softDeleteAnonymousProjects",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/operationsMeta/getDeletableProjectsCount",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "POST",
+          "path": "/support/projects/{project.id}/suspend",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "POST",
+          "path": "/support/projects/{project.id}/unsuspend",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/projectStartInfo/{project.id || project.domain}",
+          "name": "Unknown",
+          "description": "Unknown. This endpoint was previously available to the public without authentication. This was fixed on 7/3/2020 at roughly 10:30 AM EST.",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/infrastructure/projects/byDomainOrHostOrId/{project.id || project.domain}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/infrastructure/projects/{project.id}/access",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/projects/{project.id}/singlePurposeTokens/{tokenType}/{token}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "1",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/projects/singlePurposeTokens/{tokenType}/{token}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "GET",
+          "path": "/projects/{project.id}/gitAccessToken/{token}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        },
+        {
+          "method": "POST",
+          "path": "/projects/{project.id}/validateAppAuthToken/{token}",
+          "name": "Unknown",
+          "description": "Unknown",
+          "endpoint_version": "2",
+          "headers": [{
+            "optional": false,
+            "name": "Authorization",
+            "description": "Glitch infrastructure user persistent token."
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Other Methods",
+      "description": "Methods that dont fit into the groups above.",
+      "methods": [{
+        "method": "GET",
+        "path": "/search/creds",
+        "name": "Get Agolia Search Token",
+        "description": "Get Agolia Search Token",
+        "endpoint_version": "2",
+        "headers": [{
+          "optional": false,
+          "name": "Authorization",
+          "description": "Your glitch persistent token."
+        }]
+      }]
+    }
+  ]
+}
