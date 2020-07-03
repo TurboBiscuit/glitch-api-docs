@@ -3,8 +3,8 @@ Welcome to unofficial Glitch API Documentation!
 This github is for updating the [methods](https://github.com/TurboBiscuit/glitch-api-docs/)
 If you have any methods you've found make a pull request with the modified JSON file
 
-## Method Objec
-```
+## Method Object
+```json
 {
     "method": "GET", //Can be any of the HTTP Methods
     "path": "/path/of/endpoint/excluding/version",
