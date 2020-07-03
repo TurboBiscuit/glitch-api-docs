@@ -4,7 +4,7 @@ This github is for updating the [methods](https://github.com/TurboBiscuit/glitch
 If you have any methods you've found make a pull request with the modified JSON file
 
 ## Method Object
-```json
+```jsonc
 {
     "method": "GET", //Can be any of the HTTP Methods
     "path": "/path/of/endpoint/excluding/version",
