@@ -1,6 +1,6 @@
 # Unofficial Glitch API Docs
 Welcome to unofficial Glitch API Documentation! 
-This github is for updating the [methods](https://github.com/TurboBiscuit/glitch-api-docs/)
+This github is for updating the [methods](https://github.com/TurboBiscuit/glitch-api-docs/blob/master/methods.json)
 If you have any methods you've found make a pull request with the modified JSON file
 
 ## Method Object
